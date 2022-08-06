@@ -1,0 +1,22 @@
+version: "3"
+
+volumes:
+  postgres_db: {}
+
+networks:
+  bridge:
+
+services:
+  weight_postgres:
+    image: postgres:11.10
+    environment:
+      - POSTGRES_USER=
+      - POSTGRES_PASSWORD=
+      - POSTGRES_DB=
+    volumes:
+      - "postgres_db:/var/lib/postgresql/data"
+    stdin_open: true
+    networks:
+      - bridge
+    ports:
+      - "5432:5432"
