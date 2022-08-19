@@ -7,7 +7,7 @@ import (
 
 	"github.com/bagasss3/go-weight/internal/config"
 	"github.com/bagasss3/go-weight/internal/model"
-	logger "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
 )
 
 type weightController struct {
@@ -21,6 +21,16 @@ func NewWeightController(weightRepo model.WeightRepository) model.WeightControll
 }
 
 func (w *weightController) Create(ctx context.Context, req *model.WeightInput) (*model.Weight, error) {
+	logger := logrus.WithFields(logrus.Fields{
+		"ctx": ctx,
+		"req": req,
+	})
+
+	if err := req.Validate(); err != nil {
+		logger.Error(err)
+		return nil, err
+	}
+
 	parse, err := time.Parse(config.LayoutISO, req.CreatedAt)
 	if err != nil {
 		logger.Error(err)
@@ -40,6 +50,10 @@ func (w *weightController) Create(ctx context.Context, req *model.WeightInput) (
 }
 
 func (w *weightController) ReadWeights(ctx context.Context) ([]*model.Weight, error) {
+	logger := logrus.WithFields(logrus.Fields{
+		"ctx": ctx,
+	})
+
 	weights, err := w.weightRepo.GetAllWeights(ctx)
 	if err != nil {
 		logger.Error(err)
@@ -49,6 +63,11 @@ func (w *weightController) ReadWeights(ctx context.Context) ([]*model.Weight, er
 }
 
 func (w *weightController) ShowWeight(ctx context.Context, id int64) (*model.Weight, error) {
+	logger := logrus.WithFields(logrus.Fields{
+		"ctx": ctx,
+		"id":  id,
+	})
+
 	weight, err := w.weightRepo.GetWeightByID(ctx, id)
 	if err != nil {
 		logger.Error(err)
@@ -61,6 +80,11 @@ func (w *weightController) ShowWeight(ctx context.Context, id int64) (*model.Wei
 }
 
 func (w *weightController) UpdateWeight(ctx context.Context, id int64, req *model.WeightInput) (*model.Weight, error) {
+	logger := logrus.WithFields(logrus.Fields{
+		"ctx": ctx,
+		"id":  id,
+	})
+
 	parse, err := time.Parse(config.LayoutISO, req.CreatedAt)
 	if err != nil {
 		logger.Error(err)
@@ -87,6 +111,11 @@ func (w *weightController) UpdateWeight(ctx context.Context, id int64, req *mode
 }
 
 func (w *weightController) DeleteWeight(ctx context.Context, id int64) (bool, error) {
+	logger := logrus.WithFields(logrus.Fields{
+		"ctx": ctx,
+		"id":  id,
+	})
+
 	weight, err := w.ShowWeight(ctx, id)
 	if err != nil {
 		logger.Error(err)

@@ -25,8 +25,8 @@ func RouteService(
 }
 
 func (s *Service) initRoutes() {
-	s.group.POST("/create", s.handleCreateWeight())
-	s.group.GET("/weights", s.handleGetAllWeights())
+	s.group.POST("/weight", s.handleCreateWeight())
+	s.group.GET("/weight", s.handleGetAllWeights())
 	s.group.GET("/weight/:id", s.handleShowWeight())
 	s.group.PUT("/weight/:id", s.handleUpdateWeight())
 	s.group.DELETE("/weight/:id", s.handleDeleteWeight())

@@ -14,9 +14,9 @@ type Weight struct {
 }
 
 type WeightInput struct {
-	MaxWeight int32  `json:"max_weight"`
-	MinWeight int32  `json:"min_weight"`
-	CreatedAt string `json:"created_at"`
+	MaxWeight int32  `json:"max_weight" validate:"required,min=1"`
+	MinWeight int32  `json:"min_weight" validate:"required,min=1,ltfield=MaxWeight"`
+	CreatedAt string `json:"created_at" validate:"required"`
 }
 
 type WeightRepository interface {
@@ -33,4 +33,8 @@ type WeightController interface {
 	ShowWeight(ctx context.Context, id int64) (*Weight, error)
 	UpdateWeight(ctx context.Context, id int64, req *WeightInput) (*Weight, error)
 	DeleteWeight(ctx context.Context, id int64) (bool, error)
+}
+
+func (w *WeightInput) Validate() error {
+	return validate.Struct(w)
 }
