@@ -32,6 +32,6 @@ func main() {
 	httpServer := echo.New()
 	httpServer.Use(middleware.CORS())
 	apiGroup := httpServer.Group("/api")
-	httpsvc.RouteService(apiGroup, weightController, weightRepo)
+	httpsvc.RouteService(apiGroup, weightController)
 	httpServer.Logger.Fatal(httpServer.Start(":8000"))
 }

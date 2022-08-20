@@ -8,18 +8,15 @@ import (
 type Service struct {
 	group            *echo.Group
 	weightController model.WeightController
-	weightRepository model.WeightRepository
 }
 
 func RouteService(
 	group *echo.Group,
 	weightController model.WeightController,
-	weightRepository model.WeightRepository,
 ) {
 	srv := &Service{
 		group:            group,
 		weightController: weightController,
-		weightRepository: weightRepository,
 	}
 	srv.initRoutes()
 }
