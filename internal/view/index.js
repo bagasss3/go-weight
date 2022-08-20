@@ -22,7 +22,7 @@ function weightCreate() {
     return false;
   }
   const xhttp = new XMLHttpRequest();
-  xhttp.open("POST", "http://localhost:8000/api/create");
+  xhttp.open("POST", "http://localhost:8000/api/weight");
   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xhttp.send(
     JSON.stringify({
@@ -142,7 +142,7 @@ function showWeight(id) {
 
 function loadTable() {
   const xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "http://localhost:8000/api/weights");
+  xhttp.open("GET", "http://localhost:8000/api/weight");
   xhttp.send();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {

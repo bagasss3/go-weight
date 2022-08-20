@@ -34,7 +34,7 @@ func TestHTTP_handleCreateWeight(t *testing.T) {
 	}
 
 	t.Run("ok", func(t *testing.T) {
-		req := httptest.NewRequest(http.MethodPost, "/api/create", strings.NewReader(`
+		req := httptest.NewRequest(http.MethodPost, "/api/weight", strings.NewReader(`
         {
         "max_weight": 10,
         "min_weight": 5,
@@ -57,7 +57,7 @@ func TestHTTP_handleCreateWeight(t *testing.T) {
 	})
 
 	t.Run("failed", func(t *testing.T) {
-		req := httptest.NewRequest(http.MethodPost, "/api/create", strings.NewReader(`
+		req := httptest.NewRequest(http.MethodPost, "/api/weight", strings.NewReader(`
         {
         "max_weight": 10,
         "min_weight": 5,
@@ -103,7 +103,7 @@ func TestHTTP_handleGetAllWeights(t *testing.T) {
 		},
 	}
 	ec := echo.New()
-	req := httptest.NewRequest(http.MethodGet, "/api/weights", nil)
+	req := httptest.NewRequest(http.MethodGet, "/api/weight", nil)
 
 	server := &Service{
 		group:            ec.Group("/api"),
