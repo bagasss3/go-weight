@@ -16,12 +16,7 @@ import (
 
 func main() {
 	db.InitializeDbConn()
-	sqlDB, err := db.PostgreDB.DB()
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer sqlDB.Close()
-	err = db.AutoMigrate()
+	err := db.AutoMigrate()
 	if err != nil {
 		log.Fatal(err)
 	}

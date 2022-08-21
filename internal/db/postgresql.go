@@ -20,6 +20,14 @@ func InitializeDbConn() {
 		logger.WithField("databaseDSN", config.DatabaseDSN()).Fatal("failed to connect database: ", err)
 	}
 
+	sqlDB, err := db.DB()
+	if err != nil {
+		logger.WithField("databaseDSN", config.DatabaseDSN()).Fatal("failed to connect database: ", err)
+	}
+	sqlDB.SetMaxIdleConns(config.PostgreMaxIdleConns())
+	sqlDB.SetMaxOpenConns(config.PostgreMaxOpenConns())
+	sqlDB.SetConnMaxLifetime(config.PostgreSetConnMaxLifeTime())
+
 	PostgreDB = db
 
 	logger.Info("Connection to postgreql success...")
